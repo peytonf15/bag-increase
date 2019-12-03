@@ -1,0 +1,163 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Campus Housing Resolution Site</title>
+    <style>
+        .form-group {
+        position: relative;
+        margin-bottom: 1rem;
+      }
+      .form-control-placeholder {
+        position: absolute;
+        top: 0;
+        padding: 7px 0 0 10px;
+        transition: all 200ms;
+        opacity: 0.5;
+      }
+      .form-control:focus + .form-control-placeholder,
+      .form-control:valid + .form-control-placeholder {
+        font-size: 75%;
+        transform: translate3d(0, -100%, 0);
+        opacity: 1;
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"
+        jquery-3.3.1.min.js></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jssor-slider/27.5.0/jssor.slider.min.js" type="text/javascript"></script>
+    <!-- Firebase CDN -->
+    <script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
+    <!-- Firebase Ref -->
+    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: 'AIzaSyDPjGwepzq1eOobr_PsrpZDK3N70zRGTuk',
+            authDomain: "eac-student-submissions.firebaseapp.com",
+            databaseURL: "https://eac-student-submissions.firebaseio.com",
+            projectId: "eac-student-submissions",
+            storageBucket: "",
+            messagingSenderId: '447438465978'
+        };
+        firebase.initializeApp(config);
+    </script>
+</head>
+<body>
+   <!-- Start of pretty HTML form-->
+    <h1 style="text-align: center; color: red">Student Housing Resolution Site</h1>
+    <form id="submission-form" class="form-signin" role="form" onsubmit="return formSubmit(this)">
+        <fieldset>
+            <div class="container my-5">
+                <div class="row">
+                    <div class="col-md-8 mx-auto">
+                        <div class="form-group">
+                            <input type="text" name="fullname" class="form-control" required>
+                            <label class="form-control-placeholder" for="name">Name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="cougarnet" class="form-control" required>
+                            <label class="form-control-placeholder" for="cougarnet">Cougarnet ID</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-control" required>
+                            <label class="form-control-placeholder" for="email">Preferred Contact Email</label>
+                        </div>
+                        <h3 style="text-align: center">Building</h3>
+                        <div class="form-group">
+                            <div class="col-xs-2 text-xs-center">
+                                <label class="btn text-xs-center">
+                                    <input type="checkbox" name="building" value="cv1">CV1</label>
+                            </div>
+                            <div class="col-xs-2 text-xs-center">
+                                <label class="btn text-xs-center">
+                                    <input type="checkbox" name="building" value="cv2">CV2</label>
+                            </div>
+                            <div class="col-xs-2 text-xs-center">
+                                <label class="btn text-xs-center">
+                                    <input type="checkbox" name="building" value="u-lofts">University Lofts</label>
+                            </div>
+                        </div>
+                        <h3 style="text-align: center">Issue</h3>
+                        <div class="form-group">
+                            <div class="col-xs-2 text-xs-center">
+                                <label class="btn text-xs-center">
+                                    <input type="checkbox" name="issue" value="door-not-closing">Door does not close</label>
+                            </div>
+                            <div class="col-xs-2 text-xs-center">
+                                <label class="btn text-xs-center">
+                                    <input type="checkbox" name="issue" value="door-not-locking">Door does not lock</label>
+                            </div>
+                            <div class="col-xs-2 text-xs-center">
+                                <label class="btn text-xs-center">
+                                    <input type="checkbox" name="issue" value="no-building-access">No access to
+                                    building</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="comments" rows="4" class="form-control" required></textarea>
+                            <label class="form-control-placeholder" for="comments">Comments</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="col-md-6 mx-auto" style="text-align: center">
+            <input type="submit" class="btn btn-primary" id="form-submit" value="Submit Request" style="background-color: red; border-color: red">
+            <input type="reset" value="Reset Form" class="btn btn-primary" style="background-color: gray; border-color: gray">
+        </div>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <!-- End of pretty HTML form-->
+    <!-- Handle Form Submissions with Firebase and PHP -->
+    <script type="text/javascript">
+        var formSubmit = function (formObj) {
+            var myFirebaseRef = new Firebase("https://eac-student-submissions.firebaseio.com/");
+            var fullname = $("input[name='fullname']").val();
+            var cougarnet = $("input[name='cougarnet']").val();
+            var email = $("input[name='email']").val();
+            var building = $("input[name='building']:checked").map(function (_, el) {
+                return $(el).val();
+            }).get();
+            var issue = $("input[name='issue']:checked").map(function (_, el) {
+                return $(el).val();
+            }).get();
+            var comments = $("textarea[name='comments']").val();
+            myFirebaseRef.push({
+                name: fullname,
+                cougarnet: cougarnet,
+                email: email,
+                building: building,
+                issue: issue,
+                comments: comments
+            });
+            return false;
+        };
+        $('form#submission-form').on('submit', function (e) {
+            e.preventDefault();
+            console.log('debugging form');
+            document.getElementById("submission-form").reset();
+            setTimeout(function() {
+                alert("Thank you for submitting! We will be in contact shortly.");
+            },1000);
+        })
+        var ref = firebase.database().ref();
+        const showing_stuff = document.querySelector("#showing-stuff");
+        ref.on("value", function (snapshot) {
+            snapshot.forEach(function (doc) {
+                console.log(doc.val());
+            });
+        }, function (error) {
+            console.log("Error: " + error.code);
+        });
+    </script>
+    <!-- End of Form Submission Handling -->
+</body>
+</html>
